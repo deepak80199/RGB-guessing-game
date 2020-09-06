@@ -1,0 +1,153 @@
+ try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+                    Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/lgdb","root","");
+                    String name=nam.getText();
+                    String username=user.getText();
+                    String password=String.valueOf(pass.getPassword());
+                    String repass=String.valueOf(pass1.getPassword());
+                    if(name.trim().isEmpty()&&username.trim().isEmpty()&&password.trim().isEmpty())
+                    {
+                        lbl_name.setText("Name is Empty");
+                        lbl_username.setText("Username is Empty");
+                        lbl_password.setText("Password is Empty");
+                    }
+                   else if(name.trim().isEmpty())
+                    {
+                        lbl_name.setText("Name is Empty");
+                    }
+                   else if(username.trim().isEmpty())
+                    {
+                        lbl_username.setText("Username is Empty");
+                    }
+                   else if(password.trim().isEmpty())
+                    {
+                        lbl_password.setText("Password is Empty");
+                    }
+                   else if(!password.equals(repass))
+                   {
+                       lbl_repass.setText("Retype password");
+                   }
+                    else
+                   {
+                    String query="INSERT INTO `logindb`(`Name`, `Username`, `password`) VALUES (?,?,?)";
+                    PreparedStatement ps=con.prepareStatement(query);
+                    ps.setString(1, name);
+                    ps.setString(2, username);
+                    ps.setString(3,password);
+                    if(ps.executeUpdate()>0)
+                    {
+                        JOptionPane.showMessageDialog(null,"New user added");
+                        login lg=new login();
+                        lg.setVisible(true);
+                        setVisible(false);
+                    }
+                   }  
+        }
+        catch(Exception e)
+        {
+           JOptionPane.showMessageDialog(null,e); 
+        }
+    }  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  String fname=txtfullname.getText();
+        String username = txtusername.getText();
+        String pass1=String.valueOf(txtpassword.getPassword());
+        String pass2=String.valueOf(txtpasswordc.getPassword());
+        String phone = intphone.getText();
+        String gender = "male";
+         
+        if(jRadioButton_female.isSelected())
+        {
+            gender="female";
+        }
+        
+        if(verifyFields())
+        {
+            if(!checkUsername(username))
+            {
+                
+             
+               
+                  try {  
+                                  Class.forName("com.mysql.jdbc.Driver");
+                               Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/user_database","root","");
+                  
+                             
+                             String registerUserquery="INSERT INTO `users`(`fullname`, `username`, `password`, `phone`, `gender`) VALUES (?,?,?,?,?,?)";
+                                 PreparedStatement ps=con.prepareStatement(registerUserquery);
+                                 
+                                    ps.setString(1,fname);
+                                    ps.setString(2,username);
+                                    ps.setString(3,pass1);
+                                     ps.setString(4,phone);
+                                        ps.setString(5,gender);
+       
+     //   if(ps.executeUpdate()!=0)
+      //  {JOptionPane.showMessageDialog(null,"you have been registered");
+      //  }    
+            
+        //menu form = new menu();
+        //form.setVisible(true);
+        //form.pack();
+       // form.setLocationRelativeTo(null);
+       // this.dispose();
+       // }
+        else
+        {
+        JOptionPane.showMessageDialog(null,"ERROR: check your information");
+        }
+        // TODO add your handling code here:
+        } catch (SQLException ex) {
+        Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+                                 
+                      //ps=my_connection.getConnection().prepareStatement(registerUserquery);
+                               
+                  }
+     
+      
+              
+              
+              
+            }
+        }
